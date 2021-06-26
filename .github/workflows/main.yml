@@ -51,8 +51,11 @@ jobs:
         
       - name: install
         run: |
+          echo "Running install base requirements"
           pip3 install -r requirements/base.txt
+          echo "Running install test requirements"
           pip3 install -r requirements/test.txt
+          echo "Running setup.py"
           echo '\n\n' | python setup.py develop
       - name: before_script
         run: |
