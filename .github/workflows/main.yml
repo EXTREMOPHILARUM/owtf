@@ -47,24 +47,24 @@ jobs:
         run: |
           sudo apt update
           sudo apt -y install libffi-dev golang postgresql-client libgnutls28-dev libyaml-dev python3-yaml python3-pip libcurl4-openssl-dev libssl-dev
-          pip3 install pyopenssl
+          sudo pip3 install pyopenssl
         
       - name: install
         run: |
           echo "Running install base requirements"
-          pip3 install -r requirements/base.txt
+          sudo pip3 install -r requirements/base.txt
           echo "Running install test requirements"
-          pip3 install -r requirements/test.txt
+          sudo pip3 install -r requirements/test.txt
           echo "create virtual environment"
-          python3 -m venv $HOME/.virtualenvs/owtf --clear
+          sudo python3 -m venv $HOME/.virtualenvs/owtf --clear
           echo "Activate virtual environment"
-          source $HOME/.virtualenvs/owtf/bin/activate
+          sudo source $HOME/.virtualenvs/owtf/bin/activate
           echo "Running setup.py"
-          echo '\n\n' | python3 setup.py develop
+          echo '\n\n' | sudo python3 setup.py develop
       - name: before_script
         run: |
-          source $HOME/.virtualenvs/owtf/bin/activate
-          pip3 install mock pyHamcrest
+          sudo source $HOME/.virtualenvs/owtf/bin/activate
+          sudo pip3 install mock pyHamcrest
           sudo cp -f ./tests/fixtures/profiles/plugin_web/groups.cfg ~/.owtf/conf/profiles/plugin_web/groups.cfg
           sudo cp -f ./tests/fixtures/profiles/plugin_net/groups.cfg ~/.owtf/conf/profiles/plugin_net/groups.cfg
           sudo cp -f ./tests/fixtures/profiles/plugin_aux/groups.cfg ~/.owtf/conf/profiles/plugin_aux/groups.cfg
