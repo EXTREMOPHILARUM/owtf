@@ -64,21 +64,23 @@ jobs:
           echo '\n\n' | sudo python3 setup.py develop
       - name: before_script
         run: |
-          sudo source $WORKSPACE/.virtualenvs/owtf/bin/activate
-          sudo pip3 install mock pyHamcrest
-          sudo cp -f ./tests/fixtures/profiles/plugin_web/groups.cfg ~/.owtf/conf/profiles/plugin_web/groups.cfg
-          sudo cp -f ./tests/fixtures/profiles/plugin_net/groups.cfg ~/.owtf/conf/profiles/plugin_net/groups.cfg
-          sudo cp -f ./tests/fixtures/profiles/plugin_aux/groups.cfg ~/.owtf/conf/profiles/plugin_aux/groups.cfg
+          sudo su
+          source $WORKSPACE/.virtualenvs/owtf/bin/activate
+          pip3 install mock pyHamcrest
+          cp -f ./tests/fixtures/profiles/plugin_web/groups.cfg ~/.owtf/conf/profiles/plugin_web/groups.cfg
+          cp -f ./tests/fixtures/profiles/plugin_net/groups.cfg ~/.owtf/conf/profiles/plugin_net/groups.cfg
+          cp -f ./tests/fixtures/profiles/plugin_aux/groups.cfg ~/.owtf/conf/profiles/plugin_aux/groups.cfg
           git config --global user.email "tasty@mac.test"
           git config --global user.name "Tasty Test"
 
       - name: Python_tests_step
         run: |
+          sudo su
           source $WORKSPACE/.virtualenvs/owtf/bin/activate
-          sudo python3 -m unittest tests.functional.cli.test_empty_run
-          sudo python3 -m unittest tests.functional.cli.test_list_plugins
-          sudo python3 -m unittest tests.functional.cli.test_nowebui
-          sudo python3 -m unittest tests.functional.plugins.web
+          python3 -m unittest tests.functional.cli.test_empty_run
+          python3 -m unittest tests.functional.cli.test_list_plugins
+          python3 -m unittest tests.functional.cli.test_nowebui
+          python3 -m unittest tests.functional.plugins.web
         env:
           POSTGRES_HOST: localhost
           POSTGRES_PORT: 5432
