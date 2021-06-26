@@ -46,7 +46,7 @@ jobs:
       - name: before_install
         run: |
           sudo apt update
-          sudo apt -y install libffi-dev golang postgresql-client libgnutls28-dev libyaml-dev python3-yaml python3-pip 
+          sudo apt -y install libffi-dev golang postgresql-client libgnutls28-dev libyaml-dev python3-yaml python3-pip libcurl4-openssl-dev libssl-dev
           pip3 install pyopenssl
         
       - name: install
