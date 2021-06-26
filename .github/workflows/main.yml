@@ -46,7 +46,7 @@ jobs:
       - name: before_install
         run: |
           sudo apt update
-          sudo apt -y install libffi-dev golang postgresql-client libgnutls28-dev libyaml-dev python3-yaml python3-pip libcurl4-openssl-dev libssl-dev
+          sudo apt -y install libffi-dev golang postgresql-client libgnutls28-dev libyaml-dev python3-yaml python3-pip libcurl4-openssl-dev libssl-dev python3-venv
           pip3 install pyopenssl
         
       - name: install
@@ -65,6 +65,9 @@ jobs:
         run: |
           source $HOME/.virtualenvs/owtf/bin/activate
           pip3 install mock pyHamcrest
+          mkdir -p ~/.owtf/conf/profiles/plugin_web/
+          mkdir -p ~/.owtf/conf/profiles/plugin_net/
+          mkdir -p ~/.owtf/conf/profiles/plugin_aux/
           cp -f ./tests/fixtures/profiles/plugin_web/groups.cfg ~/.owtf/conf/profiles/plugin_web/groups.cfg
           cp -f ./tests/fixtures/profiles/plugin_net/groups.cfg ~/.owtf/conf/profiles/plugin_net/groups.cfg
           cp -f ./tests/fixtures/profiles/plugin_aux/groups.cfg ~/.owtf/conf/profiles/plugin_aux/groups.cfg
