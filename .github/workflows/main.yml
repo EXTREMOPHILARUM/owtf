@@ -47,24 +47,22 @@ jobs:
         run: |
           sudo apt update
           sudo apt -y install libffi-dev golang postgresql-client libgnutls28-dev libyaml-dev python3-yaml python3-pip libcurl4-openssl-dev libssl-dev
-          sudo pip3 install pyopenssl
+          pip3 install pyopenssl
         
       - name: install
         run: |
           echo "Running install base requirements"
-          sudo pip3 install -r requirements/base.txt
+          pip3 install -r requirements/base.txt
           echo "Running install test requirements"
-          sudo pip3 install -r requirements/test.txt
+          pip3 install -r requirements/test.txt
           echo "create virtual environment"
-          sudo python3 -m venv $WORKSPACE/.virtualenvs/owtf --clear
+          python3 -m venv $WORKSPACE/.virtualenvs/owtf --clear
           echo "Activate virtual environment"
-          sudo su
           source $WORKSPACE/.virtualenvs/owtf/bin/activate
           echo "Running setup.py"
           echo '\n\n' | sudo python3 setup.py develop
       - name: before_script
         run: |
-          sudo su
           source $WORKSPACE/.virtualenvs/owtf/bin/activate
           pip3 install mock pyHamcrest
           cp -f ./tests/fixtures/profiles/plugin_web/groups.cfg ~/.owtf/conf/profiles/plugin_web/groups.cfg
@@ -75,7 +73,6 @@ jobs:
 
       - name: Python_tests_step
         run: |
-          sudo su
           source $WORKSPACE/.virtualenvs/owtf/bin/activate
           python3 -m unittest tests.functional.cli.test_empty_run
           python3 -m unittest tests.functional.cli.test_list_plugins
