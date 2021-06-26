@@ -58,7 +58,8 @@ jobs:
           echo "create virtual environment"
           sudo python3 -m venv $WORKSPACE/.virtualenvs/owtf --clear
           echo "Activate virtual environment"
-          sudo source $WORKSPACE/.virtualenvs/owtf/bin/activate
+          sudo su
+          source $WORKSPACE/.virtualenvs/owtf/bin/activate
           echo "Running setup.py"
           echo '\n\n' | sudo python3 setup.py develop
       - name: before_script
