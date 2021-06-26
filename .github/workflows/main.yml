@@ -56,14 +56,14 @@ jobs:
           echo "Running install test requirements"
           sudo pip3 install -r requirements/test.txt
           echo "create virtual environment"
-          sudo python3 -m venv $HOME/.virtualenvs/owtf --clear
+          sudo python3 -m venv $WORKSPACE/.virtualenvs/owtf --clear
           echo "Activate virtual environment"
-          sudo source $HOME/.virtualenvs/owtf/bin/activate
+          sudo source $WORKSPACE/.virtualenvs/owtf/bin/activate
           echo "Running setup.py"
           echo '\n\n' | sudo python3 setup.py develop
       - name: before_script
         run: |
-          sudo source $HOME/.virtualenvs/owtf/bin/activate
+          sudo source $WORKSPACE/.virtualenvs/owtf/bin/activate
           sudo pip3 install mock pyHamcrest
           sudo cp -f ./tests/fixtures/profiles/plugin_web/groups.cfg ~/.owtf/conf/profiles/plugin_web/groups.cfg
           sudo cp -f ./tests/fixtures/profiles/plugin_net/groups.cfg ~/.owtf/conf/profiles/plugin_net/groups.cfg
@@ -73,7 +73,7 @@ jobs:
 
       - name: Python_tests_step
         run: |
-          source $HOME/.virtualenvs/owtf/bin/activate
+          source $WORKSPACE/.virtualenvs/owtf/bin/activate
           sudo python3 -m unittest tests.functional.cli.test_empty_run
           sudo python3 -m unittest tests.functional.cli.test_list_plugins
           sudo python3 -m unittest tests.functional.cli.test_nowebui
