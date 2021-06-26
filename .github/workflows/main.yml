@@ -60,7 +60,7 @@ jobs:
           echo "Activate virtual environment"
           source $HOME/.virtualenvs/owtf/bin/activate
           echo "Running setup.py"
-          echo '\n\n' | sudo python3 setup.py develop
+          echo '\n\n' | python3 setup.py develop
       - name: before_script
         run: |
           source $HOME/.virtualenvs/owtf/bin/activate
