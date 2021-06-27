@@ -1,27 +1,21 @@
-
 name: OWTF CI
 
-
 on:
-
   push:
-    branches: [ master, develop, github_actions ]
+    branches: [master, develop, github_actions]
   pull_request:
-    branches: [ master, develop, github_actions ]
-
+    branches: [master, develop, github_actions]
 
   workflow_dispatch:
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        python-version: [ 3.9 ]
-        node-version: [ 15.0 ]
+        python-version: [3.9]
+        node-version: [15.0]
     services:
       db:
         image: postgres
@@ -38,9 +32,7 @@ jobs:
           --health-timeout 5s 
           --health-retries 5
 
-    
     steps:
-    
       - uses: actions/checkout@v2
 
       - name: before_install
@@ -48,7 +40,7 @@ jobs:
           sudo apt update
           sudo apt -y install libffi-dev golang postgresql-client libgnutls28-dev libyaml-dev python3-yaml python3-pip libcurl4-openssl-dev libssl-dev python3-venv
           pip3 install pyopenssl
-        
+
       - name: install
         run: |
           echo "Running install base requirements"
@@ -85,3 +77,6 @@ jobs:
           POSTGRES_HOST: localhost
           POSTGRES_PORT: 5432
 
+      - name: node_js
+        working-directory: owtf/webapp
+        run: yarn test
