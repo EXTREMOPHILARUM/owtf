@@ -40,7 +40,7 @@ jobs:
           path: |
             $HOME/.cache
             $WORKSPACE/.owtf
-          key: ${{ runner.os }}-${{ hashFiles('**/.cache') }}
+          key: ${{ runner.os }}-${{ hashFiles('$WORKSPACE/.owtf/*') }}
 
       - name: before_install
         run: |
